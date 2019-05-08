@@ -30,7 +30,6 @@
       state: directory
 
 # Firewalld
-
 - name: Add services nfs mountd rpc-bind
   firewalld:
       service: "{{ item }}"
@@ -40,6 +39,7 @@
       - nfs
       - mountd
       - rpc-bind
-        # TODO: [firewalld reload] dealing with changed flags
+
 - name: Reload The firewalld
   command: firewall-cmd --reload
+  changed_when: False
