@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Kebairia Zakaria
+  description: NFS-server Installation for Linux
+  license: "license (GPLv3)"
+
+  min_ansible_version: 2.4
+  platforms:
+  - name: Redhat
+    versions:
+    - 7
+
+  galaxy_tags:
+    - nfs
+    - nfs4
+    - share
+    - server
+    - filesystem

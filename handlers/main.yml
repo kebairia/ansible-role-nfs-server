@@ -1,0 +1,5 @@
+---
+# handlers file for zk.nfs-server
+- name: reload nfs-server service
+  command: exportfs -ra
+

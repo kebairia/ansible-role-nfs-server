@@ -1,0 +1,45 @@
+---
+# tasks file for zk.nfs-server
+#
+# DEAL WITH THE SERVICES (STARTING/ENABLING)
+- name: Enable nfs-server service
+  service:
+      name: nfs-server
+      state: started
+      enabled: yes
+- name: Enable firewalld
+  service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+# CONFIGURATION FILES , DIRECTORIES
+
+- name: Add share points to '/etc/exports'
+  template:
+      src: exports.j2
+      dest: /etc/exports
+      mode: 0640
+  notify: reload nfs-server service
+- name: Create the share point
+  file:
+      path: "{{share_point}}"
+      owner: nfsnobody
+      group: root
+      mode: 0700
+      state: directory
+
+# Firewalld
+
+- name: Add services nfs mountd rpc-bind
+  firewalld:
+      service: "{{ item }}"
+      permanent: yes
+      state: enabled
+  with_items:
+      - nfs
+      - mountd
+      - rpc-bind
+        # TODO: [firewalld reload] dealing with changed flags
+- name: Reload The firewalld
+  command: firewall-cmd --reload

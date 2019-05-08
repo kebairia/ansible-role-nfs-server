@@ -1,0 +1,8 @@
+---
+# defaults file for zk.nfs-server
+nfs-services:
+    - nfs
+    - mountd
+    - rpc-bind
+share_point: /nfsshare
+target: client
